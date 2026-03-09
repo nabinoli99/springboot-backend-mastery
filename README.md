@@ -5,7 +5,7 @@
 
 ---
 
-## 👋 What is this repo?
+## 👋 What is this repository?
 
 This isn't a tutorial I copy-pasted.
 This is me actually learning backend development — one concept at a time, one commit at a time.
