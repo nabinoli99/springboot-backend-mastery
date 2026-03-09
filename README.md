@@ -50,7 +50,6 @@ SummaryDTO →  minimal data for list/table views
 ---
 
 ## 🗂️ Project Structure
-
 ```
 src/
 └── main/
