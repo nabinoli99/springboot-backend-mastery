@@ -51,6 +51,7 @@ SummaryDTO →  minimal data for list/table views
 
 ## 🗂️ Project Structure
 ```
+
 src/
 └── main/
     └── java/
@@ -76,7 +77,7 @@ src/
 | Spring Boot | 3.2.x | Modern, production-ready framework |
 | PostgreSQL | 14+ | Real database, not in-memory |
 | Lombok | Latest | Removes boilerplate getters/setters |
-| Hibernate Validator | Latest | DTO validation annotations| 
+| Hibernate Validator | Latest | DTO validation annotations|
 
 ---
 
