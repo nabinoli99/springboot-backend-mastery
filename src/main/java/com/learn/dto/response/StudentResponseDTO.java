@@ -13,4 +13,5 @@ public class StudentResponseDTO {
     private Double gpa;
     private LocalDateTime createdAt;
     private boolean active;
+
 }
