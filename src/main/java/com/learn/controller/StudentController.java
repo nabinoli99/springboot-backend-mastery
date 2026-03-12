@@ -49,7 +49,7 @@ public class StudentController {
 
     /**
      * Update student's details with id */
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<ApiResponse<StudentResponseDTO>> updateStudent(
             @PathVariable Long id ,
             @RequestBody  StudentUpdateRequestDTO request) {
