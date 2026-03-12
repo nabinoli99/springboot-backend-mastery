@@ -9,4 +9,6 @@ public class StudentUpdateRequestDTO {
     private String firstName;
     private String lastName;
     private LocalDate dateofBirth;
+    private String email;
+    private Double gpa;
 }
