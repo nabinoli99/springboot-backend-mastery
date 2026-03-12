@@ -30,15 +30,6 @@ UpdateDTO  →  what frontend sends when editing
 SummaryDTO →  minimal data for list/table views
 ```
 
-**What I built:**
-
-| Class | Type | Purpose |
-|---|---|---|
-| `Student` | Entity | Maps to `students` table in PostgreSQL |
-| `StudentRegistrationRequestDTO` | Request | Frontend sends this to register |
-| `StudentUpdateRequestDTO` | Request | Frontend sends this to update profile |
-| `StudentResponseDTO` | Response | What API returns — no password, has fullName |
-| `StudentSummaryDTO` | Response | Minimal data for student list table |
 
 **Key decisions made:**
 - `fullName` in response instead of separate `firstName` + `lastName` — cleaner for frontend display
@@ -56,8 +47,17 @@ src/
 └── main/
     └── java/
         └── com/learn/
+            |---coommon/
+            |    |--ApiRespone.java
+            |    |--ApiResponseUtil.java
+            |---config/
+            |    |--AppConfig.java
+            |---controller
+            |    |--StudentController.java
             ├── entity/
             │   └── Student.java
+            |---mapper
+            |   |--StudentMapper.java
             ├── dto/
             │   ├── request/
             │   │   ├── StudentRegistrationRequestDTO.java
@@ -65,6 +65,13 @@ src/
             │   └── response/
             │       ├── StudentResponseDTO.java
             │       └── StudentSummaryDTO.java
+            |---repository
+            |   |--StudentRepository.java
+            |---services
+            |   |--interface
+            |   |    |--StudentService.java
+            |   |--impl
+            |        |--StudentSericeImpl.java
             └── DtoMasteryApplication.java
 ```
 ---
@@ -81,33 +88,6 @@ src/
 
 ---
 
-## ⚙️ Setup & Run Locally
-
-**1. Clone the repo**
-```bash
-git clone https://github.com/yourusername/spring-boot-backend-mastery.git
-cd spring-boot-backend-mastery
-```
-
-**2. Create PostgreSQL database**
-```sql
-CREATE DATABASE dto_mastery_db;
-```
-
-**3. Update application.properties**
-```properties
-spring.datasource.url=jdbc:postgresql://localhost:5432/dto_mastery_db
-spring.datasource.username=your_username
-spring.datasource.password=your_password
-```
-
-**4. Run**
-```bash
-./mvnw spring-boot:run
-```
-
----
-
 ## 📅 Roadmap
 
 - [x] Day 1 — Student Entity + All DTOs
@@ -117,37 +97,6 @@ spring.datasource.password=your_password
 - [ ] Day 5 — Pagination & Pageable
 - [ ] Day 6 — Full working API tested in Postman
 
----
-
-## 💡 What I Learned
-
-```
-❌ Before:  Return entity directly from controller
-✅ After:   Entity → Service → DTO → Controller → Frontend
-
-❌ Before:  One class for everything
-✅ After:   Separate RequestDTO, ResponseDTO, UpdateDTO, SummaryDTO
-
-❌ Before:  Expose password in API response
-✅ After:   Password never leaves the backend. Ever.
-```
-
----
-
-## 📌 Commit Convention Used
-
-```
-init:    → project setup
-build:   → dependencies, pom.xml
-config:  → application.properties
-feat:    → new feature or class
-fix:     → bug fix
-style:   → formatting, unused imports
-test:    → test classes
-docs:    → README, documentation
-```
-
----
 
 > 🎯 Goal: Become a production-ready backend developer.
 > 📍 Current: Board exams + 35-45 min/day learning sessions.
