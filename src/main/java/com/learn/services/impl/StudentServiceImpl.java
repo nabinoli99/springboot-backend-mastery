@@ -1,6 +1,7 @@
 package com.learn.services.impl;
 
 import com.learn.dto.request.StudentRegistrationRequestDTO;
+import com.learn.dto.request.StudentUpdateRequestDTO;
 import com.learn.dto.response.StudentResponseDTO;
 import com.learn.dto.response.StudentSummaryDTO;
 import com.learn.entity.Student;
@@ -42,5 +43,44 @@ public class StudentServiceImpl implements StudentService {
                 .stream()
                 .map(StudentMapper::toSummaryDTO)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public StudentResponseDTO updateStudent(Long id, StudentUpdateRequestDTO request) {
+        Student student = studentRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("Student not found with given id: "+id));
+        if(request.getFirstName()!=null){
+            student.setFirstname(request.getFirstName());
+        }
+        if(request.getLastName() != null)
+        {
+            student.setLastname(request.getLastName());
+        }
+        if(request.getEmail()!=null)
+        {
+            student.setEmail(request.getEmail());
+        }
+
+        Student update = studentRepository.save(student);
+        return StudentMapper.toResponseDTO(update);
+    }
+
+    @Override
+    public StudentResponseDTO updateStudentgpa(Long id, StudentUpdateRequestDTO request) {
+        Student student = studentRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("Student not found with given id: "+id));
+        if(request.getGpa() != null)
+        {
+            student.setGpa(request.getGpa());
+        }
+        Student update = studentRepository.save(student);
+        return StudentMapper.toResponseDTO(update);
+    }
+
+    @Override
+    public void deleteStudent(Long id) {
+        Student student = studentRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Student not found with given id: "+id));
+        studentRepository.delete(student);
     }
 }
