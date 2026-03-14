@@ -19,7 +19,8 @@ public class SecurityConfig {
                 .csrf(csrf->csrf.disable())
                 .authorizeHttpRequests(auth->auth
                         .requestMatchers("/api/students/register").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/students").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/students").permitAll() //for practice purpose only authentication is required for get student by id
+                        .requestMatchers(HttpMethod.GET, "/api/students/{id}").authenticated()
                         .anyRequest().authenticated()
                 )
                 .httpBasic(httpBasic-> {});
