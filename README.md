@@ -50,6 +50,7 @@ src/
             |---coommon/
             |    |--ApiRespone.java
             |    |--ApiResponseUtil.java
+            |    |--PageResponse.java
             |---config/
             |    |--AppConfig.java
             |---controller
@@ -65,6 +66,10 @@ src/
             │   └── response/
             │       ├── StudentResponseDTO.java
             │       └── StudentSummaryDTO.java
+            |---security
+            |    |--CustomUserDetailService.java
+            |    |--SecurityConfig.java
+            |    |--SecurityUtils.java
             |---repository
             |   |--StudentRepository.java
             |---services
