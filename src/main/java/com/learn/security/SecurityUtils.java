@@ -9,9 +9,10 @@ public class SecurityUtils {
     public static String getCurrentUserEmail(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        if(authentication == null || authentication.isAuthenticated()){
+        if(authentication == null || !authentication.isAuthenticated()){
             return null;
         }
+
         Object principal = authentication.getPrincipal();
 
         if(principal instanceof UserDetails userDetails){
