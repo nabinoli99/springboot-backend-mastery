@@ -1,5 +1,6 @@
 package com.learn.services.impl;
 
+import com.learn.common.PageResponse;
 import com.learn.dto.request.StudentRegistrationRequestDTO;
 import com.learn.dto.request.StudentUpdateRequestDTO;
 import com.learn.dto.response.StudentResponseDTO;
@@ -9,6 +10,10 @@ import com.learn.mapper.StudentMapper;
 import com.learn.repository.StudentRepository;
 import com.learn.services.StudentService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -38,11 +43,28 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<StudentSummaryDTO> getAllStudents() {
-        return studentRepository.findAll()
+    public PageResponse<StudentSummaryDTO> getAllStudents(int page, int size, String sortBy, String sortDir) {
+        Sort sort = sortDir.equalsIgnoreCase("asc")
+                ? Sort.by(sortBy).ascending()
+                : Sort.by(sortBy).descending();
+
+        Pageable pageable = PageRequest.of(page , size , sort);
+
+        Page<Student> studentPage = studentRepository.findAll(pageable);
+
+        List<StudentSummaryDTO> content = studentPage.getContent()
                 .stream()
                 .map(StudentMapper::toSummaryDTO)
                 .collect(Collectors.toList());
+
+        return PageResponse.<StudentSummaryDTO>builder()
+                .content(content)
+                .pageNumber(studentPage.getNumber())
+                .pageSize(studentPage.getSize())
+                .totalElements(studentPage.getTotalElements())
+                .totalPages(studentPage.getTotalPages())
+                .isLastPage(studentPage.isLast())
+                .build();
     }
 
     @Override
