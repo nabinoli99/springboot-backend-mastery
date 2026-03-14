@@ -51,9 +51,6 @@ public class StudentController {
                 PageResponse<StudentSummaryDTO> students = studentService.getAllStudents(page,size , sortBy,sortDir);
                 return ResponseEntity.ok(ApiResponseUtil.success("Students fetched successfully",students));
     }
-
-
-
     /**
      * Update student's details with id */
     @PutMapping("/update/{id}")
