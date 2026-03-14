@@ -2,6 +2,7 @@ package com.learn.controller;
 
 import com.learn.common.ApiResponse;
 import com.learn.common.ApiResponseUtil;
+import com.learn.common.PageResponse;
 import com.learn.dto.request.StudentRegistrationRequestDTO;
 import com.learn.dto.request.StudentUpdateRequestDTO;
 import com.learn.dto.response.StudentResponseDTO;
@@ -11,7 +12,6 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/students")
@@ -40,12 +40,19 @@ public class StudentController {
     }
 
 /**
-* Get all students details */
+* Get all students details using Pageable */
     @GetMapping
-    public ResponseEntity<ApiResponse<List<StudentSummaryDTO>>> getAllStudents() {
-        List<StudentSummaryDTO> students = studentService.getAllStudents();
-        return ResponseEntity.ok(ApiResponseUtil.success("Students fetched successfully",students));
+    public ResponseEntity<ApiResponse<PageResponse<StudentSummaryDTO>>> getAllStudents (
+            @RequestParam(defaultValue = "0") int page ,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "firstname")String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDir){
+
+                PageResponse<StudentSummaryDTO> students = studentService.getAllStudents(page,size , sortBy,sortDir);
+                return ResponseEntity.ok(ApiResponseUtil.success("Students fetched successfully",students));
     }
+
+
 
     /**
      * Update student's details with id */
