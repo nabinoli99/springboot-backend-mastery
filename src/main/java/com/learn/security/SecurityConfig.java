@@ -14,16 +14,15 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf->csrf.disable())
-                .authorizeHttpRequests(auth->auth
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/students/register").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/students").permitAll() //for practice purpose only authentication is required for get student by id
-                        .requestMatchers(HttpMethod.GET, "/api/students/{id}").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/api/students").permitAll()
                         .anyRequest().authenticated()
                 )
-                .httpBasic(httpBasic-> {});
-    return http.build();
+                .httpBasic(httpBasic -> {});
+        return http.build();
     }
 }
